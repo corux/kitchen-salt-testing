@@ -1,13 +1,13 @@
 FROM centos:7
-MAINTAINER "corux" <corux@corux.de>
+MAINTAINER "corux"
 ENV container docker
 
 RUN yum -y swap -- remove fakesystemd -- install systemd systemd-libs
 
-RUN curl --silent -O https://repo.saltstack.com/yum/rhel7/SALTSTACK-GPG-KEY.pub; \
+RUN curl --silent -O https://repo.saltstack.com/yum/redhat/7/x86_64/latest/SALTSTACK-GPG-KEY.pub; \
     rpm --import SALTSTACK-GPG-KEY.pub; \
     rm -f SALTSTACK-GPG-KEY.pub; \
-    curl --silent -L http://repo.saltstack.com/yum/rhel7/saltstack-rhel7.repo > /etc/yum.repos.d/saltstack.repo; \
+    curl --silent -L https://repo.saltstack.com/yum/redhat/7/x86_64/saltstack-rhel7.repo > /etc/yum.repos.d/saltstack.repo; \
     yum -y install salt-minion; \
     systemctl enable salt-minion.service;
 
