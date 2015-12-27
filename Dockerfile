@@ -2,8 +2,6 @@ FROM centos:7
 MAINTAINER "corux"
 ENV container docker
 
-RUN yum -y swap -- remove systemd-container systemd-container-libs -- install systemd systemd-libs
-
 RUN curl --silent -O https://repo.saltstack.com/yum/redhat/7/x86_64/latest/SALTSTACK-GPG-KEY.pub; \
     rpm --import SALTSTACK-GPG-KEY.pub; \
     rm -f SALTSTACK-GPG-KEY.pub; \
@@ -23,5 +21,5 @@ RUN yum -y update; yum clean all; \
     rm -f /lib/systemd/system/basic.target.wants/*;\
     rm -f /lib/systemd/system/anaconda.target.wants/*;
 
-VOLUME [ "/sys/fs/cgroup" ]
+VOLUME [ "/sys/fs/cgroup", "/run", "/tmp" ]
 CMD ["/usr/sbin/init"]
