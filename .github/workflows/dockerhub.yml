@@ -1,0 +1,20 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_IMAGE: corux/centos7-salt:latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Docker Login
+      run: docker login -u ${{secrets.DOCKER_USER}} -p ${{secrets.DOCKER_PASSWORD}}
+    - name: Docker Build
+      run: docker build . --tag $DOCKER_IMAGE
+    - name: Docker Push
+      run: docker push $DOCKER_IMAGE
